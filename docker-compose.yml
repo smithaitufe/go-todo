@@ -1,0 +1,45 @@
+version: '3.1'
+services: 
+  go-todo:
+    build: .
+    volumes: 
+      - $GOPATH/pkg/mod/cache:/go/pkg/mod/cache
+    working_dir: /go-todo
+    ports:
+      - 5000:5000
+    depends_on: 
+      - todo-db
+    networks:
+      - todo
+  todo-db:
+    image: "postgres"
+    environment: 
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "4321:5432"
+    volumes:
+      - database_data:/var/lib/postgresql/data/
+      - ./db/scripts:/docker-entrypoint-initdb.d/
+    networks: 
+      - todo
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+      - todo-db
+    ports:
+      - "5050:80"
+    networks:
+      - todo
+    restart: unless-stopped
+
+volumes: 
+  database_data:
+
+networks: 
+  todo:
+    driver: bridge

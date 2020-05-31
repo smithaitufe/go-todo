@@ -1,0 +1,14 @@
+type Todo {
+    id: ID!
+    description: String!
+    completed: Boolean!
+}
+
+input AddTodo {
+    description: String!
+}
+
+input UpdateTodo {
+    description: String!
+    completed: Boolean!
+}

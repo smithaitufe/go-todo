@@ -1,0 +1,25 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+
+type Query {
+    todos: [Todo!]!
+    todo(id: ID!): Todo    
+}
+
+type Mutation {
+    addTodo(input: AddTodoInput!): Todo
+    updateTodo(id: ID!, input: UpdateTodoInput!): Todo
+    deleteTodo(id: ID!): Todo
+}
+
+input AddTodoInput {
+    description: String!
+}
+
+input UpdateTodoInput {
+    description: String!
+    completed: Boolean!
+}
