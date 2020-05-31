@@ -11,5 +11,5 @@ It is my intention to keep updating this repository with more features.
 ## Usage
 
 Simply clone to your local machine.
-Then cd to the directory containing the project.
+Then **cd** to the directory containing the project.
 Open your terminal and run the command `chmod +x ./start.sh && ./start`
