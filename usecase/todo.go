@@ -6,42 +6,42 @@ import (
 	"github.com/smithaitufe/go-todo/db"
 )
 
-type todoUsecase struct {
+type TodoUsecase struct {
 	todoRepository db.TodoRepository
 }
 
 func NewTodoUsecase(todoRepository db.TodoRepository) todo.TodoUsecase {
-	return &todoUsecase{todoRepository}
+	return &TodoUsecase{todoRepository}
 }
-func (u *todoUsecase) FetchTodos() ([]todo.Todo, error) {
+func (u *TodoUsecase) FetchTodos() ([]todo.Todo, error) {
 	todos, err := u.todoRepository.GetTodos()
 	if err != nil {
 		return nil, err
 	}
 	return todos, nil
 }
-func (u *todoUsecase) FetchTodo(id int64) (*todo.Todo, error) {
+func (u *TodoUsecase) FetchTodo(id int64) (*todo.Todo, error) {
 	todo, err := u.todoRepository.GetTodo(id)
 	if err != nil {
 		return nil, err
 	}
 	return todo, nil
 }
-func (u *todoUsecase) AddTodo(t todo.Todo) (*todo.Todo, error) {
+func (u *TodoUsecase) AddTodo(t todo.Todo) (*todo.Todo, error) {
 	todo, err := u.todoRepository.CreateTodo(t)
 	if err != nil {
 		return nil, err
 	}
 	return todo, nil
 }
-func (u *todoUsecase) UpdateTodo(id int64, t todo.Todo) (*todo.Todo, error) {
+func (u *TodoUsecase) UpdateTodo(id int64, t todo.Todo) (*todo.Todo, error) {
 	todo, err := u.todoRepository.UpdateTodo(id, t)
 	if err != nil {
 		return nil, err
 	}
 	return todo, nil
 }
-func (u *todoUsecase) DeleteTodo(id int64) (*todo.Todo, error) {
+func (u *TodoUsecase) DeleteTodo(id int64) (*todo.Todo, error) {
 	todo, err := u.todoRepository.GetTodo(id)
 	if err != nil {
 		return nil, err
