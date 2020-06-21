@@ -13,3 +13,11 @@ type TodoService interface {
 	UpdateTodo(id int64, t Todo) (*Todo, error)
 	DeleteTodo(t Todo) (*Todo, error)
 }
+
+type TodoUsecase interface {
+	FetchTodos() ([]Todo, error)
+	FetchTodo(id int64) (*Todo, error)
+	AddTodo(t Todo) (*Todo, error)
+	UpdateTodo(id int64, t Todo) (*Todo, error)
+	DeleteTodo(id int64) (*Todo, error)
+}
