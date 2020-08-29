@@ -1,9 +1,19 @@
 package todo
 
+import (
+	"fmt"
+
+	"github.com/graph-gophers/graphql-go"
+)
+
 type Todo struct {
-	ID          uint64 `gorm:"primary_key;auto_increment"`
+	ID          uint   `gorm:"primary_key"`
 	Description string `gorm:"not null;"`
 	Completed   bool   `gorm:"default:false"`
+}
+
+func (t Todo) Id() graphql.ID {
+	return graphql.ID(fmt.Sprintf("%d", t.ID))
 }
 
 type TodoService interface {
@@ -12,12 +22,4 @@ type TodoService interface {
 	CreateTodo(t Todo) (*Todo, error)
 	UpdateTodo(id int64, t Todo) (*Todo, error)
 	DeleteTodo(t Todo) (*Todo, error)
-}
-
-type TodoUsecase interface {
-	FetchTodos() ([]Todo, error)
-	FetchTodo(id int64) (*Todo, error)
-	AddTodo(t Todo) (*Todo, error)
-	UpdateTodo(id int64, t Todo) (*Todo, error)
-	DeleteTodo(id int64) (*Todo, error)
 }

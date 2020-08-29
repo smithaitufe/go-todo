@@ -1,6 +1,8 @@
 package db
 
 import (
+	"fmt"
+
 	"github.com/jinzhu/gorm"
 	"github.com/smithaitufe/go-todo"
 )
@@ -26,6 +28,8 @@ func (s todoRepository) GetTodos() ([]todo.Todo, error) {
 	if err != nil {
 		return nil, err
 	}
+	fmt.Printf("%#v", todos)
+
 	return todos, nil
 }
 

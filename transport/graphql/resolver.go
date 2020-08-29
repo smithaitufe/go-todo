@@ -2,48 +2,48 @@ package graphql
 
 import (
 	"context"
-	"fmt"
 	"strconv"
 
 	"github.com/graph-gophers/graphql-go"
 	"github.com/smithaitufe/go-todo"
 )
 
-type TodoResolver struct {
-	t *todo.Todo
-}
+// type TodoResolver struct {
+// 	t *todo.Todo
+// }
 
-func (r *TodoResolver) ID() graphql.ID {
-	return graphql.ID(fmt.Sprintf("%d", r.t.ID))
+// func (r *TodoResolver) ID() graphql.ID {
+// 	return graphql.ID(fmt.Sprintf("%d", r.t.ID))
 
-}
-func (r *TodoResolver) Description() string {
-	return r.t.Description
-}
-func (r *TodoResolver) Completed() bool {
-	return r.t.Completed
-}
-func (s *graphqlServer) Todos() ([]*TodoResolver, error) {
+// }
+// func (r *TodoResolver) Description() string {
+// 	return r.t.Description
+// }
+// func (r *TodoResolver) Completed() bool {
+// 	return r.t.Completed
+// }
+func (s *graphqlServer) Todos() ([]*todo.Todo, error) {
 	todos, err := s.todoUsecase.FetchTodos()
 	if err != nil {
 		return nil, err
 	}
-	todosResolver := make([]*TodoResolver, 0)
-	for _, t := range todos {
-		todosResolver = append(todosResolver, &TodoResolver{&t})
+	out := make([]*todo.Todo, len(todos))
+	for i := range todos {
+		out[i] = &todos[i]
 	}
-	return todosResolver, nil
+
+	return out, nil
 }
 
 func (s *graphqlServer) Todo(ctx context.Context, args struct {
 	ID graphql.ID
-}) (*TodoResolver, error) {
+}) (*todo.Todo, error) {
 
 	todo, err := s.todoUsecase.FetchTodo(int64ID(args.ID))
 	if err != nil {
 		return nil, err
 	}
-	return &TodoResolver{todo}, nil
+	return todo, nil
 }
 
 type AddTodoInput struct {
@@ -52,7 +52,7 @@ type AddTodoInput struct {
 
 func (s *graphqlServer) AddTodo(ctx context.Context, args struct {
 	Input AddTodoInput
-}) (*TodoResolver, error) {
+}) (*todo.Todo, error) {
 	td := todo.Todo{
 		Description: args.Input.Description,
 	}
@@ -61,7 +61,7 @@ func (s *graphqlServer) AddTodo(ctx context.Context, args struct {
 		return nil, err
 
 	}
-	return &TodoResolver{t}, nil
+	return t, nil
 }
 
 type UpdateTodoInput struct {
@@ -72,7 +72,7 @@ type UpdateTodoInput struct {
 func (s *graphqlServer) UpdateTodo(ctx context.Context, args struct {
 	ID    graphql.ID
 	Input UpdateTodoInput
-}) (*TodoResolver, error) {
+}) (*todo.Todo, error) {
 	td := todo.Todo{
 		Description: args.Input.Description,
 		Completed:   args.Input.Completed,
@@ -82,17 +82,17 @@ func (s *graphqlServer) UpdateTodo(ctx context.Context, args struct {
 		return nil, err
 
 	}
-	return &TodoResolver{t}, nil
+	return t, nil
 }
 func (s *graphqlServer) DeleteTodo(ctx context.Context, args struct {
 	ID graphql.ID
-}) (*TodoResolver, error) {
+}) (*todo.Todo, error) {
 	t, err := s.todoUsecase.DeleteTodo(int64ID(args.ID))
 	if err != nil {
 		return nil, err
 
 	}
-	return &TodoResolver{t}, nil
+	return t, nil
 }
 func int64ID(id graphql.ID) int64 {
 	i, _ := strconv.ParseInt(string(id), 10, 64)
