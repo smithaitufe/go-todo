@@ -14,7 +14,6 @@ import (
 
 // func (r *TodoResolver) ID() graphql.ID {
 // 	return graphql.ID(fmt.Sprintf("%d", r.t.ID))
-
 // }
 // func (r *TodoResolver) Description() string {
 // 	return r.t.Description
