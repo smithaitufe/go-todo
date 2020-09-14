@@ -8,6 +8,8 @@ import (
 
 type Todo struct {
 	ID          uint   `gorm:"primary_key"`
+	UserID      uint   `gorm:"not null"`
+	User        User   `gorm:"foreignkey:UserID;association_foreignkey:ID"`
 	Description string `gorm:"not null;"`
 	Completed   bool   `gorm:"default:false"`
 }
