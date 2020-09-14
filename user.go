@@ -10,8 +10,8 @@ type User struct {
 
 type UserRepository interface {
 	FindUsers() ([]User, error)
-	FindUser(id int64) (*User, error)
-	CreateUser(t User) (*User, error)
-	UpdateUser(id int64, t User) (*User, error)
-	DeleteUser(t User) (*User, error)
+	FindUser(id uint) (*User, error)
+	CreateUser(u User) (*User, error)
+	UpdateUser(u User) (*User, error)
+	DeleteUser(u User) error
 }

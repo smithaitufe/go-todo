@@ -2,12 +2,10 @@ package usecase
 
 import (
 	"github.com/smithaitufe/go-todo"
-
-	"github.com/smithaitufe/go-todo/db"
 )
 
 type todoUsecase struct {
-	todoRepository db.TodoRepository
+	todoRepository todo.TodoRepository
 }
 
 type TodoUsecase interface {
@@ -18,7 +16,7 @@ type TodoUsecase interface {
 	DeleteTodo(id int64) (*todo.Todo, error)
 }
 
-func NewTodoUsecase(todoRepository db.TodoRepository) TodoUsecase {
+func NewTodoUsecase(todoRepository todo.TodoRepository) TodoUsecase {
 	return &todoUsecase{todoRepository}
 }
 func (u *todoUsecase) FetchTodos() ([]todo.Todo, error) {

@@ -1,25 +1,15 @@
 package db
 
 import (
-	"fmt"
-
 	"github.com/jinzhu/gorm"
 	"github.com/smithaitufe/go-todo"
 )
-
-type TodoRepository interface {
-	GetTodos() ([]todo.Todo, error)
-	GetTodo(id int64) (*todo.Todo, error)
-	CreateTodo(t todo.Todo) (*todo.Todo, error)
-	UpdateTodo(id int64, t todo.Todo) (*todo.Todo, error)
-	DeleteTodo(t todo.Todo) (*todo.Todo, error)
-}
 
 type todoRepository struct {
 	DB *gorm.DB
 }
 
-func NewTodoRepository(db *gorm.DB) TodoRepository {
+func NewTodoRepository(db *gorm.DB) todo.TodoRepository {
 	return todoRepository{db}
 }
 func (s todoRepository) GetTodos() ([]todo.Todo, error) {
@@ -28,8 +18,6 @@ func (s todoRepository) GetTodos() ([]todo.Todo, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("%#v", todos)
-
 	return todos, nil
 }
 

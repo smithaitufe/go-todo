@@ -16,9 +16,9 @@ func (t Todo) Id() graphql.ID {
 	return graphql.ID(fmt.Sprintf("%d", t.ID))
 }
 
-type TodoService interface {
-	FindTodos() ([]Todo, error)
-	FindTodo(id int64) (*Todo, error)
+type TodoRepository interface {
+	GetTodos() ([]Todo, error)
+	GetTodo(id int64) (*Todo, error)
 	CreateTodo(t Todo) (*Todo, error)
 	UpdateTodo(id int64, t Todo) (*Todo, error)
 	DeleteTodo(t Todo) (*Todo, error)
