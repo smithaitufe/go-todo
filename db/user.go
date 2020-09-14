@@ -1,8 +1,6 @@
 package db
 
 import (
-	"fmt"
-
 	"github.com/jinzhu/gorm"
 	"github.com/smithaitufe/go-todo"
 )
@@ -20,8 +18,6 @@ func (s userRepository) FindUsers() ([]todo.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("%#v", u)
-
 	return u, nil
 }
 

@@ -30,7 +30,6 @@ func (s *graphqlServer) Todos() ([]*todo.Todo, error) {
 	for i := range todos {
 		out[i] = &todos[i]
 	}
-
 	return out, nil
 }
 
