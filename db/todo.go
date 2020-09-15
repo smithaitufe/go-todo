@@ -21,7 +21,7 @@ func (s todoRepository) GetTodos() ([]todo.Todo, error) {
 	return todos, nil
 }
 
-func (s todoRepository) GetTodo(id int64) (*todo.Todo, error) {
+func (s todoRepository) GetTodo(id int32) (*todo.Todo, error) {
 	var todo todo.Todo
 	err := s.DB.Where(map[string]interface{}{"id": id}).Find(&todo).Error
 	if err != nil {
@@ -38,7 +38,7 @@ func (s todoRepository) CreateTodo(t todo.Todo) (*todo.Todo, error) {
 	return &t, nil
 }
 
-func (s todoRepository) UpdateTodo(id int64, t todo.Todo) (*todo.Todo, error) {
+func (s todoRepository) UpdateTodo(id int32, t todo.Todo) (*todo.Todo, error) {
 	err := s.DB.Model(&todo.Todo{}).Where(map[string]interface{}{"id": id}).Updates(&t).Error
 	if err != nil {
 		return nil, err

@@ -1,14 +1,14 @@
 type Todo {
     id: ID!
+    userID: ID!
     description: String!
     completed: Boolean!
+    createdAt: Time!
+    updatedAt: Time!
 }
 
-input AddTodo {
-    description: String!
-}
-
-input UpdateTodo {
+input TodoInput {
+    userID: ID!
     description: String!
     completed: Boolean!
 }

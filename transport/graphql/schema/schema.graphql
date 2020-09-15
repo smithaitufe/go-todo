@@ -6,20 +6,14 @@ schema {
 
 type Query {
     todos: [Todo!]!
-    todo(id: ID!): Todo    
+    todo(id: ID!): Todo  
+    users: [User!]!
+    user(id: ID!): User
 }
 
 type Mutation {
-    addTodo(input: AddTodoInput!): Todo
-    updateTodo(id: ID!, input: UpdateTodoInput!): Todo
+    addTodo(input: TodoInput!): Todo
+    updateTodo(id: ID!, input: TodoInput!): Todo
     deleteTodo(id: ID!): Todo
-}
-
-input AddTodoInput {
-    description: String!
-}
-
-input UpdateTodoInput {
-    description: String!
-    completed: Boolean!
+    createUser(input: UserInput!): User
 }

@@ -21,7 +21,7 @@ func (s userRepository) FindUsers() ([]todo.User, error) {
 	return u, nil
 }
 
-func (s userRepository) FindUser(id uint) (*todo.User, error) {
+func (s userRepository) FindUser(id int32) (*todo.User, error) {
 	var u todo.User
 	err := s.db.Where(map[string]interface{}{"id": id}).Find(&u).Error
 	if err != nil {

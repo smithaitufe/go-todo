@@ -10,10 +10,10 @@ type todoUsecase struct {
 
 type TodoUsecase interface {
 	FetchTodos() ([]todo.Todo, error)
-	FetchTodo(id int64) (*todo.Todo, error)
+	FetchTodo(id int32) (*todo.Todo, error)
 	AddTodo(t todo.Todo) (*todo.Todo, error)
-	UpdateTodo(id int64, t todo.Todo) (*todo.Todo, error)
-	DeleteTodo(id int64) (*todo.Todo, error)
+	UpdateTodo(id int32, t todo.Todo) (*todo.Todo, error)
+	DeleteTodo(id int32) (*todo.Todo, error)
 }
 
 func NewTodoUsecase(todoRepository todo.TodoRepository) TodoUsecase {
@@ -26,7 +26,7 @@ func (u *todoUsecase) FetchTodos() ([]todo.Todo, error) {
 	}
 	return todos, nil
 }
-func (u *todoUsecase) FetchTodo(id int64) (*todo.Todo, error) {
+func (u *todoUsecase) FetchTodo(id int32) (*todo.Todo, error) {
 	todo, err := u.todoRepository.GetTodo(id)
 	if err != nil {
 		return nil, err
@@ -40,14 +40,14 @@ func (u *todoUsecase) AddTodo(t todo.Todo) (*todo.Todo, error) {
 	}
 	return todo, nil
 }
-func (u *todoUsecase) UpdateTodo(id int64, t todo.Todo) (*todo.Todo, error) {
+func (u *todoUsecase) UpdateTodo(id int32, t todo.Todo) (*todo.Todo, error) {
 	todo, err := u.todoRepository.UpdateTodo(id, t)
 	if err != nil {
 		return nil, err
 	}
 	return todo, nil
 }
-func (u *todoUsecase) DeleteTodo(id int64) (*todo.Todo, error) {
+func (u *todoUsecase) DeleteTodo(id int32) (*todo.Todo, error) {
 	todo, err := u.todoRepository.GetTodo(id)
 	if err != nil {
 		return nil, err

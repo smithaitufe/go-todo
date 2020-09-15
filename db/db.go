@@ -24,7 +24,7 @@ func Connect(conf Config) *gorm.DB {
 	)
 	// cnstring := fmt.Sprintf("host=%s port=%d user=%s dbname=%s password=%s sslmode=disable", conf.Host, conf.Port, conf.User, conf.Database, conf.Password)
 	cnstring := fmt.Sprintf("postgresql://%s:%s@%s/%s?sslmode=disable", conf.User, conf.Password, conf.Host, conf.Database)
-	fmt.Print(cnstring)
+
 	for {
 		db, err = gorm.Open("postgres", cnstring)
 		if err == nil {

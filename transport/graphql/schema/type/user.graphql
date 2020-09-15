@@ -1,0 +1,13 @@
+type User {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    email: String!
+    # todos: [Todo!]
+}
+
+input UserInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+}

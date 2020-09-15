@@ -6,10 +6,10 @@ import (
 
 type UserUsecase interface {
 	GetUsers() ([]todo.User, error)
-	GetUser(id uint) (*todo.User, error)
+	GetUser(id int32) (*todo.User, error)
 	CreateUser(u todo.User) (*todo.User, error)
-	UpdateUser(id uint, u todo.User) (*todo.User, error)
-	DeleteUser(id uint) error
+	UpdateUser(id int32, u todo.User) (*todo.User, error)
+	DeleteUser(id int32) error
 }
 
 type userUsecase struct {
@@ -27,14 +27,14 @@ func (u *userUsecase) GetUsers() ([]todo.User, error) {
 	}
 	return o, nil
 }
-func (u *userUsecase) GetUser(id uint) (*todo.User, error) {
+func (u *userUsecase) GetUser(id int32) (*todo.User, error) {
 	return u.userRepo.FindUser(id)
 }
 func (u *userUsecase) CreateUser(in todo.User) (*todo.User, error) {
 	return u.userRepo.CreateUser(in)
 }
 
-func (u *userUsecase) UpdateUser(id uint, in todo.User) (*todo.User, error) {
+func (u *userUsecase) UpdateUser(id int32, in todo.User) (*todo.User, error) {
 	o, err := u.userRepo.FindUser(id)
 	if err != nil {
 		return nil, err
@@ -43,7 +43,7 @@ func (u *userUsecase) UpdateUser(id uint, in todo.User) (*todo.User, error) {
 	return u.userRepo.UpdateUser(in)
 }
 
-func (u *userUsecase) DeleteUser(id uint) error {
+func (u *userUsecase) DeleteUser(id int32) error {
 	o, err := u.userRepo.FindUser(id)
 	if err != nil {
 		return err
